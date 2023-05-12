@@ -73,8 +73,68 @@ public AnnuncioDTO() {
 		this.aperto=aperto;
 	}
 	
-	public Annuncio buildAnnuncioModel() {
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTestoAnnuncio() {
+		return testoAnnuncio;
+	}
+
+	public void setTestoAnnuncio(String testoAnnuncio) {
+		this.testoAnnuncio = testoAnnuncio;
+	}
+
+	public Double getPrezzo() {
+		return prezzo;
+	}
+
+	public void setPrezzo(Double prezzo) {
+		this.prezzo = prezzo;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public boolean isAperto() {
+		return aperto;
+	}
+
+	public void setAperto(boolean aperto) {
+		this.aperto = aperto;
+	}
+
+	public Utente getUtenteInserimento() {
+		return utenteInserimento;
+	}
+
+	public void setUtenteInserimento(Utente utenteInserimento) {
+		this.utenteInserimento = utenteInserimento;
+	}
+
+	public Long[] getCategorieIds() {
+		return categorieIds;
+	}
+
+	public void setCategorieIds(Long[] categorieIds) {
+		this.categorieIds = categorieIds;
+	}
+
+	public Annuncio buildAnnuncioModel(boolean includesCategorie) {
 		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.aperto);
+		if (includesCategorie && categorieIds != null)
+			result.setCategorie(Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));
 		return result;
 		}
 
