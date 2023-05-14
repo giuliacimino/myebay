@@ -18,5 +18,7 @@ public interface AnnuncioService {
 	public void rimuovi(Long idToDelete);
 
 	public List<Annuncio> findByExample(Annuncio example);
+	
+	public Annuncio caricaAnnuncioConCategorie (Long id);
 
 }

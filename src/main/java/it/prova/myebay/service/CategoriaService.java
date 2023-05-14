@@ -18,6 +18,8 @@ public interface CategoriaService {
 	public void rimuovi(Long idToDelete);
 
 	public List<Categoria> findByExample(Categoria example);
+	
+	public Categoria findByDescrizione(String descrizione);
 
 
 }

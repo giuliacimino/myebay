@@ -49,11 +49,11 @@ public AnnuncioDTO() {
 		
 	}
 	
-	public AnnuncioDTO(String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto, Utente utenteInserimento) {
+	public AnnuncioDTO(Long id,String testoAnnuncio, Double prezzo, LocalDate data, Utente utenteInserimento) {
+		this.id=id;
 		this.testoAnnuncio=testoAnnuncio;
 		this.prezzo=prezzo;
 		this.data=data;
-		this.aperto=aperto;
 		this.utenteInserimento=utenteInserimento;
 	}
 	
@@ -131,12 +131,17 @@ public AnnuncioDTO() {
 		this.categorieIds = categorieIds;
 	}
 
-	public Annuncio buildAnnuncioModel(boolean includesCategorie) {
-		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.aperto);
-		if (includesCategorie && categorieIds != null)
-			result.setCategorie(Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));
-		return result;
+	public Annuncio buildAnnuncioModel(boolean aperto, boolean includesCategories) {
+		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.utenteInserimento);
+		if (includesCategories && categorieIds != null) {
+			result.setCategorie(
+					Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));
 		}
+		if (aperto) {
+			result.setAperto(true);
+		}
+		return result;
+	}
 
 	// niente password...
 	public static AnnuncioDTO buildAnnuncioDTOFromModel(Annuncio annuncioModel, boolean includesCategorie) {

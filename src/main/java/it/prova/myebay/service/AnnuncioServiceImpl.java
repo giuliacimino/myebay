@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
@@ -51,6 +52,12 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 	public List<Annuncio> findByExample(Annuncio example) {
 		return annuncioRepository.findByExample(example);
 
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Annuncio caricaAnnuncioConCategorie(Long id) {
+		return annuncioRepository.findByIdConCategorie(id).orElse(null);
 	}
 
 }

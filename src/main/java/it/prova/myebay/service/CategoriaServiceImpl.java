@@ -35,7 +35,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 	@Override
 	public void inserisciNuovo(Categoria ctegoriaInstance) {
-		// TODO Auto-generated method stub
+		categoriaRepository.save(ctegoriaInstance);
 		
 	}
 
@@ -50,6 +50,13 @@ public class CategoriaServiceImpl implements CategoriaService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Categoria findByDescrizione(String descrizione) {
+		return categoriaRepository.findByDescrizione(descrizione);
+	}
+	
+	
 	
 	
 	
