@@ -48,15 +48,15 @@
 				  ${errorMessage}
 				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
 				</div>
-				<div class="alert alert-info alert-dismissible fade show ${infoMessage==null?'d-none': ''}" role="alert">
-				  ${infoMessage}
-				</div>
+				
 			    
 			     <div class="p-5 mb-4 bg-light rounded-3">
 				      <div class="container-fluid py-5">
-				        <h1 class="display-5 fw-bold">Benvenuto in MyEbay</h1>
+				        <h1 class="display-5 fw-bold">Benvenuto nella tua area personale</h1>
 				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
-				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/annuncio/search">Vai a Ricerca</a>
+				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/acquisto/acquistiutente">Acquisti Effettuati</a>
+				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/annuncio/gestioneannunci">Gestione Annunci</a>
+				        
 				      </div>
 			    </div>
 			    

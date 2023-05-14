@@ -1,5 +1,7 @@
 package it.prova.myebay.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class RuoloServiceImpl implements RuoloService{
 	public void inserisciNuovo(Ruolo ruoloInstance) {
 		ruoloRepository.save(ruoloInstance);
 		
+	}
+
+	@Override
+	public List<Ruolo> listAllElements() {
+		return (List<Ruolo>) ruoloRepository.findAll();
 	}
 
 	

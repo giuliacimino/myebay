@@ -1,42 +1,101 @@
 package it.prova.myebay.service;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
+import it.prova.myebay.repository.ruolo.RuoloRepository;
 import it.prova.myebay.repository.utente.UtenteRepository;
 
-
 @Service
-public class UtenteServiceImpl implements UtenteService{
-	@Autowired
-	private UtenteRepository utenteRepository;
+public class UtenteServiceImpl implements UtenteService {
 
+	@Autowired
+	private UtenteRepository repository;
+
+	@Autowired
+	private RuoloRepository ruoloRepository;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public Optional<Utente> findByUsername(String username) {
-		return utenteRepository.findByUsername(username);
+	@Transactional(readOnly = true)
+	public List<Utente> listAll() {
+		return (List<Utente>) repository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
+	public Utente caricaSingoloUtente(Long id) {
+		return repository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Utente caricaSingoloUtenteConRuoli(Long id) {
+		return repository.findByIdConRuoli(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public void aggiorna(Utente utenteInstance) {
+		// deve aggiornare solo nome, cognome, username, ruoli
+		Utente utenteReloaded = repository.findById(utenteInstance.getId()).orElse(null);
+		if (utenteReloaded == null)
+			throw new RuntimeException("Elemento non trovato");
+		utenteReloaded.setNome(utenteInstance.getNome());
+		utenteReloaded.setCognome(utenteInstance.getCognome());
+		utenteReloaded.setUsername(utenteInstance.getUsername());
+		utenteReloaded.setRuoli(utenteInstance.getRuoli());
+		repository.save(utenteReloaded);
+
+	}
+
+	@Override
+	@Transactional
 	public void inserisciNuovo(Utente utenteInstance) {
 		utenteInstance.setStato(StatoUtente.CREATO);
 		utenteInstance.setPassword(passwordEncoder.encode(utenteInstance.getPassword()));
 		utenteInstance.setDateCreated(LocalDate.now());
-		utenteRepository.save(utenteInstance);
-		
-		
-		
+		repository.save(utenteInstance);
+
 	}
 
 	@Override
+	@Transactional
+	public void rimuovi(Long idUtente) {
+		repository.deleteById(idUtente);
+	}
+
+
+
+	@Override
+	@Transactional(readOnly = true)
+	public Utente eseguiAccesso(String username, String password) {
+		return repository.findByUsernameAndPasswordAndStato(username, password, StatoUtente.ATTIVO);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Utente findByUsernameAndPassword(String username, String password) {
+		return repository.findByUsernameAndPassword(username, password);
+	}
+
+	@Override
+	@Transactional
 	public void changeUserAbilitation(Long utenteInstanceId) {
 		Utente utenteInstance = caricaSingoloUtente(utenteInstanceId);
 		if (utenteInstance == null)
@@ -48,16 +107,65 @@ public class UtenteServiceImpl implements UtenteService{
 			utenteInstance.setStato(StatoUtente.DISABILITATO);
 		else if (utenteInstance.getStato().equals(StatoUtente.DISABILITATO))
 			utenteInstance.setStato(StatoUtente.ATTIVO);
-		
 	}
 
 	@Override
-	public Utente caricaSingoloUtente(Long utenteId) {
-		return utenteRepository.findById(utenteId).orElse(null);
+	@Transactional(readOnly = true)
+	public Utente findByUsername(String username) {
+		return repository.findByUsername(username).orElse(null);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<String> ruoliUtenteSession() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
 
+			Utente utenteInstance = repository.findByUsername(auth.getName()).orElse(null);
+			if (utenteInstance == null) {
+				return new ArrayList<String>();
+			}
 
+			return utenteInstance.getRuoli().stream().map(ruolo -> ruolo.getCodice()).collect(Collectors.toList());
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public boolean isAutenticato() {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+
+			Utente utenteInstance = repository.findByUsername(auth.getName()).orElse(null);
+			if (utenteInstance == null) {
+				return false;
+			}
+
+			return utenteInstance.getRuoli().size() > 0;
+
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public void registrati(Utente utenteInstance) {
+		utenteInstance.setStato(StatoUtente.CREATO);
+		Set<Ruolo> ruoliUtente = new HashSet<>();
+		ruoliUtente.add(ruoloRepository.findByDescrizioneAndCodice("Classic User", "ROLE_CLASSIC_USER"));
+		utenteInstance.setRuoli(ruoliUtente);
+		utenteInstance.setPassword(passwordEncoder.encode(utenteInstance.getPassword()));
+		utenteInstance.setDateCreated(LocalDate.now());
+		repository.save(utenteInstance);
+	}
+
+	@Override
+	public List<Utente> findByExample(Utente example) {
+		return repository.findByExample(example);
+
+	}
 
 
 }

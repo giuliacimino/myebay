@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +57,14 @@ public class AcquistoServiceImpl implements AcquistoService {
 	@Transactional(readOnly = true)
 	public List<Acquisto> findByExample(Acquisto example) {
 		return null;
+	}
+
+	@Override
+	public List<Acquisto> cercaPerUtente_Username() {
+
+		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		return acquistoRepository.findAllByUtente_Username(nome);
 	}
 
 	
