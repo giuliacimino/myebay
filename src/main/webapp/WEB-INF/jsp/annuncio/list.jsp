@@ -1,6 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!doctype html>
 <html lang="it" class="h-100">
@@ -55,10 +57,28 @@
 											</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${annuncioItem.id }">Visualizza</a>
+												<sec:authorize access="isAuthenticated()">
+													<sec:authentication property="principal.username" var="utenteInPagina"/>
+					
+													<c:if test="${annuncioItem.utenteInserimento.username != utenteInPagina}">
+					
+														<form action="${pageContext.request.contextPath}/acquisto/compra"
+														method="post">
+															<input type="hidden" value="${annuncioItem.id}" name="idAnnuncio"
+															id="idAnnuncio">
+																<button type="submit" name="submit" id="submit"
+																class="btn btn-danger">Compra</button>
+														</form>				
+													</c:if>
+											   </sec:authorize>
+								
+												
 											</td>
 											
 										</tr>
 									</c:forEach>
+									
+												
 			                </tbody>
 			            </table>
 			        </div>

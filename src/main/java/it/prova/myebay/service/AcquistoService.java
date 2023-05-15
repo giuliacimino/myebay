@@ -21,5 +21,7 @@ public interface AcquistoService {
 	public List<Acquisto> findByExample(Acquisto example);
 	
 	public List<Acquisto> cercaPerUtente_Username ();
+	
+	public Acquisto inserisciNuovoAcquisto(Long idAnnuncio);
 
 }

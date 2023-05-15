@@ -45,7 +45,7 @@
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                	<c:forEach items="${annuncio_list_attr }" var="annuncioItem">
+			                	<c:forEach items="${annuncioUtente_list_attr }" var="annuncioItem">
 										<tr>
 											<td>${annuncioItem.testoAnnuncio }</td>
 											<td>${annuncioItem.prezzo } $</td>

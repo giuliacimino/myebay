@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header>
   <!-- Fixed navbar -->
@@ -18,15 +19,15 @@
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
          
-          <c:if test="${userInfo.isAdmin() }">
--	      <li class="nav-item dropdown">
--	        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestione Utenze</a>
--	        <div class="dropdown-menu" aria-labelledby="dropdown01">
--	          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareSearchUtenteServlet">Ricerca Utenti</a>
--	          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareInsertUtenteServlet">Inserisci Utente</a>
--	        </div>
--	      </li>
--	   </c:if>   
+          <sec:authorize access="hasRole('ADMIN')">
+	-	      <li class="nav-item dropdown">
+	-	        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestione Utenze</a>
+	-	        <div class="dropdown-menu" aria-labelledby="dropdown01">
+	-	          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareSearchUtenteServlet">Ricerca Utenti</a>
+	-	          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/PrepareInsertUtenteServlet">Inserisci Utente</a>
+	-	        </div>
+	-	      </li>
+-	   </sec:authorize>  
         </ul>
       </div>
       <div class="col-md-3 text-end">

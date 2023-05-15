@@ -101,5 +101,7 @@ public class AnnuncioController {
 		model.addAttribute("annuncioUtente_list_attr", annunciUtenteDTO);
 		return "/annuncio/listutente";
 	}
+	
+	
 
 }

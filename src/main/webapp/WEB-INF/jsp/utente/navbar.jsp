@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarsExample07">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
+            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/annuncio/search">Ricerca Annunci</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/utente/ricarica/${utenteInPagina}">Ricarica Credito</a>
