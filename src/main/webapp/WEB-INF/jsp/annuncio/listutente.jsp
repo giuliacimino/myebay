@@ -53,9 +53,7 @@
 												<fmt:parseDate value="${annuncioItem.data}" pattern="yyyy-MM-dd" var="localDateToBeParsed" type="date"/>
 												<fmt:formatDate pattern="dd/MM/yyyy" value="${localDateToBeParsed}" />
 											</td>
-											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${annuncioItem.id }">Visualizza</a>
-											</td>
+											
 											
 										</tr>
 									</c:forEach>

@@ -45,7 +45,7 @@
 			                	<c:forEach items="${acquisto_list_attr }" var="acquistoItem">
 									<tr>
 										<td>${acquistoItem.descrizione }</td>
-										<td>${acquistoItem.prezzo}</td>
+										<td>${acquistoItem.prezzo} $</td>
 										<td>${acquistoItem.data}</td>
 										<td>
 										

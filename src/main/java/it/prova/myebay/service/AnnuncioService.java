@@ -20,5 +20,7 @@ public interface AnnuncioService {
 	public List<Annuncio> findByExample(Annuncio example);
 	
 	public Annuncio caricaAnnuncioConCategorie (Long id);
+	
+	public List<Annuncio> cercaPerUtente_Username();
 
 }

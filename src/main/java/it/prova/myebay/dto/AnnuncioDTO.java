@@ -27,54 +27,51 @@ import it.prova.myebay.validation.ValidationNoPassword;
 import it.prova.myebay.validation.ValidationWithPassword;
 
 public class AnnuncioDTO {
-	
+
 	private Long id;
-	
+
 	@NotBlank(message = "{testoannuncio.notblank}")
 	private String testoAnnuncio;
 	@NotNull(message = "{prezzo.notNull}")
 	private Double prezzo;
-	
-	private LocalDate data;
-	
-	
-	private boolean aperto;
-	
-	
-	private Utente utenteInserimento;
-	
-	private Long[] categorieIds;
-	
-public AnnuncioDTO() {
-		
-	}
-	
-	public AnnuncioDTO(Long id,String testoAnnuncio, Double prezzo, LocalDate data, Utente utenteInserimento) {
-		this.id=id;
-		this.testoAnnuncio=testoAnnuncio;
-		this.prezzo=prezzo;
-		this.data=data;
-		this.utenteInserimento=utenteInserimento;
-	}
-	
 
-	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto, Utente utenteInserimento) {
-		this.testoAnnuncio=testoAnnuncio;
-		this.prezzo=prezzo;
-		this.data=data;
-		this.aperto=aperto;
-		this.utenteInserimento=utenteInserimento;
+	private LocalDate data;
+
+	private boolean aperto;
+
+	private Utente utenteInserimento;
+
+	private Long[] categorieIds;
+
+	public AnnuncioDTO() {
+
 	}
-	
+
+	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, Utente utenteInserimento) {
+		this.id = id;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.utenteInserimento = utenteInserimento;
+	}
+
+	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto,
+			Utente utenteInserimento) {
+		this.id = id;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.aperto = aperto;
+		this.utenteInserimento = utenteInserimento;
+	}
+
 	public AnnuncioDTO(String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto) {
-		this.testoAnnuncio=testoAnnuncio;
-		this.prezzo=prezzo;
-		this.data=data;
-		this.aperto=aperto;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.aperto = aperto;
 	}
-	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -145,8 +142,9 @@ public AnnuncioDTO() {
 
 	// niente password...
 	public static AnnuncioDTO buildAnnuncioDTOFromModel(Annuncio annuncioModel, boolean includesCategorie) {
-		AnnuncioDTO result = new AnnuncioDTO(annuncioModel.getId(), annuncioModel.getTestoAnnuncio(), annuncioModel.getPrezzo(),
-				annuncioModel.getData(), annuncioModel.isAperto(), annuncioModel.getUtenteInserimento());
+		AnnuncioDTO result = new AnnuncioDTO(annuncioModel.getId(), annuncioModel.getTestoAnnuncio(),
+				annuncioModel.getPrezzo(), annuncioModel.getData(), annuncioModel.isAperto(),
+				annuncioModel.getUtenteInserimento());
 
 		if (includesCategorie && !annuncioModel.getCategorie().isEmpty())
 			result.categorieIds = annuncioModel.getCategorie().stream().map(r -> r.getId()).collect(Collectors.toList())
@@ -155,14 +153,11 @@ public AnnuncioDTO() {
 		return result;
 	}
 
-	public static List<AnnuncioDTO> createAnnuncioDTOListFromModelList(List<Annuncio> modelListInput, boolean includesCategorie) {
+	public static List<AnnuncioDTO> createAnnuncioDTOListFromModelList(List<Annuncio> modelListInput,
+			boolean includesCategorie) {
 		return modelListInput.stream().map(annuncioEntity -> {
 			return AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioEntity, includesCategorie);
 		}).collect(Collectors.toList());
 	}
-	
-	
-
-
 
 }

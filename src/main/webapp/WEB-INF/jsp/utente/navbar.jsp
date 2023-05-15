@@ -41,7 +41,7 @@
       <sec:authorize access="isAuthenticated()" var="isAutenticato"></sec:authorize>
       <c:choose>
    		<c:when test="${isAutenticato}"><div class="col-md text-end">   
-	         <p class="navbar-text">Utente: ${userInfo.username }(${userInfo.nome } ${userInfo.cognome })
+	         <p class="navbar-text">Utente: ${userInfo.username}(${userInfo.nome} ${userInfo.cognome})
     	 <a href="${pageContext.request.contextPath}/executeLogout">Logout</a></p>
     	 </div></c:when>
 		   <c:otherwise><div class="col-md text-end">  <h6 class="navbar-text">

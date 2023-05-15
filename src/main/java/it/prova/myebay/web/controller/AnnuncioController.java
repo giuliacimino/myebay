@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
+import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
@@ -25,13 +27,13 @@ import it.prova.myebay.service.CategoriaService;
 @Controller
 @RequestMapping(value = "/annuncio")
 public class AnnuncioController {
-	
+
 	@Autowired
 	AnnuncioService annuncioService;
-	
+
 	@Autowired
 	CategoriaService categoriaService;
-	
+
 	@GetMapping
 	public ModelAndView listAll() {
 		ModelAndView mv = new ModelAndView();
@@ -40,7 +42,7 @@ public class AnnuncioController {
 		mv.setViewName("annuncio/list");
 		return mv;
 	}
-	
+
 	@GetMapping("/search")
 	public String searchAnnuncio(Model model) {
 		model.addAttribute("categorie_totali_attr",
@@ -48,12 +50,14 @@ public class AnnuncioController {
 		model.addAttribute("search_annuncio_attr", new AnnuncioDTO());
 		return "annuncio/search";
 	}
+
 	@PostMapping("/list")
 	public String listAnnunci(AnnuncioDTO annuncioExample, ModelMap model) {
 		model.addAttribute("annuncio_list_attr", AnnuncioDTO.createAnnuncioDTOListFromModelList(
 				annuncioService.findByExample(annuncioExample.buildAnnuncioModel(true, true)), true));
 		return "annuncio/list";
 	}
+
 	@GetMapping("/show/{idAnnuncio}")
 	public String show(@PathVariable(required = true) Long idAnnuncio, Model model) {
 		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);
@@ -63,7 +67,6 @@ public class AnnuncioController {
 		return "annuncio/show";
 	}
 
-	
 	@GetMapping("/insert")
 	public String create(Model model) {
 		model.addAttribute("categorie_totali_attr",
@@ -75,9 +78,10 @@ public class AnnuncioController {
 	@PostMapping("/save")
 	public String save(@Validated @ModelAttribute("insert_annuncio_attr") AnnuncioDTO annuncioDTO, BindingResult result,
 			Model model, RedirectAttributes redirectAttrs) {
-		
+
 		if (result.hasErrors()) {
-			model.addAttribute("categorie_totali_attr",CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAllElements()));
+			model.addAttribute("categorie_totali_attr",
+					CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAllElements()));
 			return "annuncio/insert";
 		}
 		try {
@@ -89,8 +93,13 @@ public class AnnuncioController {
 		}
 		return "annuncio/list";
 	}
-	
-	
 
+	@GetMapping("/annunciutente")
+	public String listAllAcquistiUtente(Model model) {
+		List<Annuncio> annunciUtente= annuncioService.cercaPerUtente_Username();
+		List<AnnuncioDTO> annunciUtenteDTO= AnnuncioDTO.createAnnuncioDTOListFromModelList(annunciUtente, false);
+		model.addAttribute("annuncioUtente_list_attr", annunciUtenteDTO);
+		return "/annuncio/listutente";
+	}
 
 }

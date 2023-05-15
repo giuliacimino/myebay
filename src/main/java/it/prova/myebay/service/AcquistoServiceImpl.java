@@ -16,6 +16,9 @@ public class AcquistoServiceImpl implements AcquistoService {
 	
 	@Autowired
 	AcquistoRepository acquistoRepository;
+	
+	@Autowired
+	UtenteService utenteService;
 
 	@Transactional(readOnly = true)
 	public List<Acquisto> listAllElements() {
@@ -60,11 +63,14 @@ public class AcquistoServiceImpl implements AcquistoService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Acquisto> cercaPerUtente_Username() {
 
-		String nome = SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		return acquistoRepository.findAllByUtente_Username(nome);
+		
+		
+		return acquistoRepository.findAllByUtente_Username(username);
 	}
 
 	

@@ -3,6 +3,7 @@ package it.prova.myebay.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +59,15 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 	@Transactional(readOnly = true)
 	public Annuncio caricaAnnuncioConCategorie(Long id) {
 		return annuncioRepository.findByIdConCategorie(id).orElse(null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Annuncio> cercaPerUtente_Username() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		
+		return annuncioRepository.findByUtente_Username(username);
 	}
 
 }
