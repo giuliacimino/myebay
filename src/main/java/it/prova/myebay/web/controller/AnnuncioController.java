@@ -2,6 +2,9 @@ package it.prova.myebay.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import exception.AnnuncioChiusoException;
+import exception.UtenteNonTrovatoException;
 import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
@@ -102,6 +107,70 @@ public class AnnuncioController {
 		return "/annuncio/listutente";
 	}
 	
+	@GetMapping("edit/{idAnnuncio}")
+	public String editAnnuncio(@PathVariable(required = true) Long idAnnuncio, Model model) {
+		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioModel, true);
+		model.addAttribute("edit_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_totali_attr",
+				CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAllElements()));
+		return "annuncio/edit";
+	}
+
+	@PostMapping("/edit")
+	public String edit(@Valid @ModelAttribute("edit_annuncio_attr") AnnuncioDTO annuncioDTO, BindingResult result,
+			Model model, RedirectAttributes redirectAttrs) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("categorie_totali_attr",
+					CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAllElements()));
+			return "annuncio/edit";
+		}
+		try {
+			annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true, true));
+			redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		} catch (AnnuncioChiusoException e) {
+			redirectAttrs.addFlashAttribute("errorMessage",
+					"Attenzione! L'annuncio che stai cercando di modificare è già chiuso.");
+			return "redirect:/annuncio";
+		} catch (UtenteNonTrovatoException e) {
+			redirectAttrs.addFlashAttribute("errorMessage", "Attenzione! Utente non loggato.");
+			return "redirect:/annuncio";
+		}
+
+		return "annuncio/listutente";
+	}
+	
+	@GetMapping("delete/{idAnnuncio}")
+	public String deleteAnnuncio(@PathVariable(required = true) Long idAnnuncio, Model model) {
+		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioModel, true);
+		model.addAttribute("delete_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_totali_attr", annuncioModel.getCategorie());
+		return "annuncio/delete";
+	}
+
+	@PostMapping("/delete")
+	public String delete(Long idAnnuncio, RedirectAttributes redirectAttrs) {
+		try {
+			annuncioService.rimuovi(idAnnuncio);
+			redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		} catch (AnnuncioChiusoException e) {
+			redirectAttrs.addFlashAttribute("errorMessage",
+					"Attenzione! L'annuncio che stai cercando di eliminare è già chiuso.");
+			return "redirect:/annuncio";
+		} catch (UtenteNonTrovatoException e) {
+			redirectAttrs.addFlashAttribute("errorMessage", "Attenzione! Utente non loggato.");
+			return "redirect:/annuncio";
+
+		} catch (RuntimeException er) {
+			redirectAttrs.addFlashAttribute("errorMessage", "Attenzione! Non puoi eliminare un annuncio non tuo.");
+			return "redirect:/annuncio";
+		}
+		return "redirect:/annuncio";
+
+	}
+
 	
 
 }

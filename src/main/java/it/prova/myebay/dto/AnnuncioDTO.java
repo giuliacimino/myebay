@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
 
@@ -27,6 +29,9 @@ public class AnnuncioDTO {
 	private UtenteDTO utenteInserimento;
 
 	private Long[] categorieIds;
+	
+	@Autowired
+	UtenteDTO utenteDTO;
 
 	public AnnuncioDTO() {
 
@@ -114,7 +119,7 @@ public class AnnuncioDTO {
 	}
 
 	public Annuncio buildAnnuncioModel(boolean aperto, boolean includesCategories) {
-		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.utenteInserimento.buildUtenteModel(includesCategories));
+		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.utenteInserimento.buildUtenteModel(false));
 		if (includesCategories && categorieIds != null) {
 			result.setCategorie(
 					Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));
