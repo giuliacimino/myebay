@@ -45,7 +45,7 @@
 			    </div>
 			    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 			    
-			 <a class="w-45 btn btn-outline-primary btn-lg" href="${pageContext.request.contextPath}/utente/registrati">Sign up</a>
+			 <a class="w-45 btn btn-outline-primary btn-lg" href="${pageContext.request.contextPath}/registrati/registrazione">Sign up</a>
 			
 			  
 			  

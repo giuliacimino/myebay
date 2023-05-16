@@ -55,7 +55,7 @@
 											</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/show/${annuncioItem.id }">Visualizza</a>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/show/${annuncioItem.id }">Modifica</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/edit/${annuncioItem.id }">Modifica</a>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/delete/${annuncioItem.id }">Elimina</a>
 											</td>
 											

@@ -48,29 +48,7 @@ public class UtenteController {
 		return mv;
 	}
 	
-	@GetMapping("/registrati")
-	public String registrati(Model model) {
-		model.addAttribute("insert_utente_attr", new UtenteDTO());
-		return "utente/signup";
-	}
-
-	@PostMapping("/signup")
-	public String signup(
-			@Validated({ ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
-
-		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
-			result.rejectValue("confermaPassword", "password.diverse");
-
-		if (result.hasErrors()) {
-			return "utente/insert";
-		}
-		utenteService.registrati(utenteDTO.buildUtenteModel(true));
-
-		redirectAttrs.addFlashAttribute("infoMessage",
-				"Sei stato registrato! Attendi che un admin abiliti il tuo account.");
-		return "redirect:/login";
-	}
+	
 	
 	@GetMapping("/search")
 	public String searchUtente(Model model) {
