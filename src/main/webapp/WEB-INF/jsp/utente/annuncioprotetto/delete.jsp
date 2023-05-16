@@ -80,7 +80,7 @@
 						<button type="submit" name="submit" id="submit"
 							class="btn btn-danger">Conferma</button>
 					<a
-						href="${pageContext.request.contextPath}/annuncio/annunciutente"
+						href="${pageContext.request.contextPath}/utente/annuncioprotetto/annunciutente"
 						class='btn btn-outline-secondary' style='width: 80px'> <i
 						class='fa fa-chevron-left'></i> Back
 					</a>

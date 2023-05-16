@@ -3,12 +3,12 @@
 <!doctype html>
 <html lang="it" class="h-100">
 <head>
-	<jsp:include page="./header.jsp" />
+	<jsp:include page="../header.jsp" />
 	<title>Pagina dei risultati</title>
 	
 </head>
 <body class="d-flex flex-column h-100">
-	<jsp:include page="./navbar.jsp" />
+	<jsp:include page="../navbar.jsp" />
 	
 	<!-- Begin page content -->
 	<main class="flex-shrink-0">
@@ -28,7 +28,7 @@
 			        <h5>Lista dei risultati</h5> 
 			    </div>
 			    <div class='card-body'>
-			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
+			    	<a href="${pageContext.request.contextPath}/secured/home" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla homepage
 				        </a>
 			    
@@ -62,7 +62,7 @@
 		</div>	
 	<!-- end container -->	
 	</main>
-	<jsp:include page="./footer.jsp" />
+	<jsp:include page="../footer.jsp" />
 	
 	
 	

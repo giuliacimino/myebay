@@ -132,5 +132,16 @@ public class AnnuncioProtettoController {
 		return "redirect:/utente/annuncioprotetto/annunciutente";
 
 	}
+	@GetMapping("/show/{idAnnuncio}")
+	public String show(@PathVariable(required = true) Long idAnnuncio, Model model) {
+		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioModel, true);
+		model.addAttribute("show_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_totali_attr", annuncioModel.getCategorie());
+		return "utente/annuncioprotetto/show";
+	}
+		
+
+	
 
 }

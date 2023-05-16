@@ -2,7 +2,6 @@ package it.prova.myebay.web.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
 import it.prova.myebay.exception.AnnuncioChiusoException;
 import it.prova.myebay.exception.UtenteNonTrovatoException;
-import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
@@ -56,7 +54,7 @@ public class AnnuncioController {
 		return "public/annuncio/search";
 	}
 
-	@PostMapping("/list")
+	@RequestMapping(value = "/list", method = { RequestMethod.POST, RequestMethod.GET })
 	public String listAnnunci(AnnuncioDTO annuncioExample, ModelMap model) {
 		model.addAttribute("annuncio_list_attr", AnnuncioDTO.createAnnuncioDTOListFromModelList(
 				annuncioService.findByExample(annuncioExample.buildAnnuncioModel(true, true)), true));
@@ -101,12 +99,12 @@ public class AnnuncioController {
 
 	@GetMapping("/annunciutente")
 	public String listAllAcquistiUtente(Model model) {
-		List<Annuncio> annunciUtente= annuncioService.cercaPerUtente_Username();
-		List<AnnuncioDTO> annunciUtenteDTO= AnnuncioDTO.createAnnuncioDTOListFromModelList(annunciUtente, false);
+		List<Annuncio> annunciUtente = annuncioService.cercaPerUtente_Username();
+		List<AnnuncioDTO> annunciUtenteDTO = AnnuncioDTO.createAnnuncioDTOListFromModelList(annunciUtente, false);
 		model.addAttribute("annuncioUtente_list_attr", annunciUtenteDTO);
 		return "/annuncio/listutente";
 	}
-	
+
 	@GetMapping("edit/{idAnnuncio}")
 	public String editAnnuncio(@PathVariable(required = true) Long idAnnuncio, Model model) {
 		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);
@@ -140,7 +138,7 @@ public class AnnuncioController {
 
 		return "redirect:/annuncio/annunciutente";
 	}
-	
+
 	@GetMapping("delete/{idAnnuncio}")
 	public String deleteAnnuncio(@PathVariable(required = true) Long idAnnuncio, Model model) {
 		Annuncio annuncioModel = annuncioService.caricaAnnuncioConCategorie(idAnnuncio);

@@ -10,7 +10,7 @@
 	
 </head>
 <body class="d-flex flex-column h-100">
-	<jsp:include page="./navbar.jsp" />
+	<jsp:include page="../navbar.jsp" />
 	
 	<!-- Begin page content -->
 	<main class="flex-shrink-0">
@@ -30,7 +30,7 @@
 			        <h5>Lista dei risultati</h5> 
 			    </div>
 			    <div class='card-body'>
-			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
+			    	<a href="${pageContext.request.contextPath}/secured/home" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla homepage
 				        </a>
 			    
@@ -54,7 +54,7 @@
 												<fmt:formatDate pattern="dd/MM/yyyy" value="${localDateToBeParsed}" />
 											</td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/public/annuncio/show/${annuncioItem.id }">Visualizza</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annnuncioprotetto/show/${annuncioItem.id }">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/edit/${annuncioItem.id }">Modifica</a>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/utente/annuncioprotetto/delete/${annuncioItem.id }">Elimina</a>
 											</td>
@@ -73,7 +73,7 @@
 		</div>	
 	<!-- end container -->	
 	</main>
-	<jsp:include page="./footer.jsp" />
+	<jsp:include page="../footer.jsp" />
 	
 	
 	

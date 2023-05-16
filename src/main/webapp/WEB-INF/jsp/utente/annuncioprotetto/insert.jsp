@@ -7,7 +7,7 @@
 	 <head>
 	 
 	 	<!-- Common imports in pages -->
-	 	<jsp:include page="./header.jsp" />
+	 	<jsp:include page="../header.jsp" />
 	 	 <style>
 		    .error_field {
 		        color: red; 
@@ -19,7 +19,7 @@
 	   <body class="d-flex flex-column h-100">
 	   
 	   		<!-- Fixed navbar -->
-	   		<jsp:include page="./navbar.jsp"></jsp:include>
+	   		<jsp:include page="../navbar.jsp"></jsp:include>
 	    
 			
 			<!-- Begin page content -->
@@ -44,6 +44,10 @@
 				        <h5>Inserisci nuovo elemento</h5> 
 				    </div>
 				    <div class='card-body'>
+				    
+				    <a href="${pageContext.request.contextPath}/secured/home" class='btn btn-outline-secondary' >
+				            <i class='fa fa-chevron-left'></i> Torna alla homepage
+				        </a>
 		
 							<h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
 		
@@ -111,6 +115,6 @@
 			</main>
 			
 			<!-- Footer -->
-			<jsp:include page="./footer.jsp" />
+			<jsp:include page="../footer.jsp" />
 	  </body>
 </html>
