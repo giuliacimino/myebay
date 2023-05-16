@@ -55,9 +55,9 @@
 				        <h1 class="display-5 fw-bold">Benvenuto nella tua area personale ${userInfo.nome}</h1>
 				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
 					<a class="btn btn-primary btn-lg"
-						href="${pageContext.request.contextPath}/acquisto/acquistiutente">I tuoi acquisti</a>
-					<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/annuncio/annunciutente">I tuoi Annunci</a>
-					<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/annuncio/insert">Crea nuovo Annuncio</a>
+						href="${pageContext.request.contextPath}/utente/acquisto/acquistiutente">I tuoi acquisti</a>
+					<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/utente/annuncioprotetto/annunciutente">I tuoi Annunci</a>
+					<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/utente/annuncioprotetto/insert">Crea nuovo Annuncio</a>
 
 				      </div>
 			    </div>

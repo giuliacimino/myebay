@@ -73,7 +73,7 @@
 				</div>
 
 				<div class='card-footer'>
-				<form action="${pageContext.request.contextPath}/annuncio/delete"
+				<form action="${pageContext.request.contextPath}/utente/annuncioprotetto/delete"
 						method="post">
 						<input type="hidden" value="${delete_annuncio_attr.id}" name="idAnnuncio"
 							id="idFilm">

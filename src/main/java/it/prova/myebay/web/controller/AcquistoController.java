@@ -19,7 +19,7 @@ import it.prova.myebay.service.AcquistoService;
 import it.prova.myebay.service.UtenteService;
 
 @Controller
-@RequestMapping(value = "/acquisto")
+@RequestMapping(value = "/utente/acquisto")
 public class AcquistoController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class AcquistoController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("acquisto_list_attr",
 				AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.listAllElements()));
-		mv.setViewName("acquisto/list");
+		mv.setViewName("utente/acquisto/list");
 		return mv;
 	}
 
@@ -42,7 +42,7 @@ public class AcquistoController {
 		List<Acquisto> acquisti= acquistoService.cercaPerUtente_Username();
 		List<AcquistoDTO> acquistiDTO= AcquistoDTO.createAcquistoDTOListFromModelList(acquisti);
 		model.addAttribute("acquisto_list_attr", acquistiDTO);
-		return "/acquisto/list";
+		return "utente/acquisto/list";
 	}
 	
 	@PostMapping("/compra")
@@ -56,11 +56,11 @@ public class AcquistoController {
 			acquistoService.inserisciNuovoAcquisto(idAnnuncio);
 		} catch (CreditoInsufficienteException e) {
 			redirectAttrs.addFlashAttribute("errorMessage", "errore: credito Insufficiente");
-			return "redirect:/annuncio";
+			return "redirect:/public/annuncio";
 		}
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		return "redirect:/acquisto";
+		return "redirect:/public/annuncio";
 	}
 
 }

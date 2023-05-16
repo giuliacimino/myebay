@@ -12,7 +12,12 @@
 	
 </head>
 <body class="d-flex flex-column h-100">
-	<jsp:include page="./navbar.jsp" />
+	 <sec:authorize access="isAuthenticated()" var="isAutenticato"></sec:authorize>
+<c:choose>
+   <c:when test="${isAutenticato}"><jsp:include page="./navbarlogin.jsp"></jsp:include></c:when>
+   <c:otherwise><jsp:include page="./navbar.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>
 	
 	<!-- Begin page content -->
 	<main class="flex-shrink-0">
@@ -32,7 +37,7 @@
 			        <h5>Lista dei risultati</h5> 
 			    </div>
 			    <div class='card-body'>
-			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
+			    	<a href="${pageContext.request.contextPath}/public/annuncio/search" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla Ricerca
 				        </a>
 			    
@@ -48,6 +53,7 @@
 			                </thead>
 			                <tbody>
 			                	<c:forEach items="${annuncio_list_attr }" var="annuncioItem">
+			                	
 										<tr>
 											<td>${annuncioItem.testoAnnuncio }</td>
 											<td>${annuncioItem.prezzo } $</td>
@@ -56,13 +62,13 @@
 												<fmt:formatDate pattern="dd/MM/yyyy" value="${localDateToBeParsed}" />
 											</td>
 											<td>
-												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${annuncioItem.id }">Visualizza</a>
+												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/public/annuncio/show/${annuncioItem.id }">Visualizza</a>
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication property="principal.username" var="utenteInPagina"/>
 					
 													<c:if test="${annuncioItem.utente.username != utenteInPagina}">
 					
-														<form action="${pageContext.request.contextPath}/acquisto/compra"
+														<form action="${pageContext.request.contextPath}/utente/acquisto/compra"
 														method="post">
 															<input type="hidden" value="${annuncioItem.id}" name="idAnnuncio"
 															id="idAnnuncio">
