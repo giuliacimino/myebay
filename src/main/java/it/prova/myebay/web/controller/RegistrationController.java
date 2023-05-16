@@ -33,9 +33,10 @@ public class RegistrationController {
 			@Validated({ ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 
-		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
+		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword())) {
 			result.rejectValue("confermaPassword", "password.diverse");
-
+			
+		}
 		if (result.hasErrors()) {
 			return "utente/insert";
 		}

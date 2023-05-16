@@ -18,9 +18,9 @@ public class AnnuncioDTO {
 
 	private Long id;
 
-	@NotBlank(message = "{testoannuncio.notblank}")
+	@NotBlank(message = "{testoAnnuncio.notblank}")
 	private String testoAnnuncio;
-	@NotNull(message = "{prezzo.notNull}")
+	@NotNull(message = "{prezzo.notnull}")
 	private Double prezzo;
 
 	private LocalDate data;
