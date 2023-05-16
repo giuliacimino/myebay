@@ -34,7 +34,8 @@ public class Acquisto {
 		
 	}
 	
-	public Acquisto(String descrizione, LocalDate data, Double prezzo, Utente utenteAcquirente) {
+	public Acquisto(Long id, String descrizione, LocalDate data, Double prezzo, Utente utenteAcquirente) {
+		this.id=id;
 		this.descrizione=descrizione;
 		this.data=data;
 		this.prezzo=prezzo;

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.myebay.dto.AcquistoDTO;
+import it.prova.myebay.exception.CreditoInsufficienteException;
 import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.service.AcquistoService;
 import it.prova.myebay.service.UtenteService;
@@ -51,7 +52,12 @@ public class AcquistoController {
 		if (!utenteService.isAutenticato())
 			return "login";
 
-		acquistoService.inserisciNuovoAcquisto(idAnnuncio);
+		try {
+			acquistoService.inserisciNuovoAcquisto(idAnnuncio);
+		} catch (CreditoInsufficienteException e) {
+			redirectAttrs.addFlashAttribute("errorMessage", "errore: credito Insufficiente");
+			return "redirect:/annuncio";
+		}
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/acquisto";

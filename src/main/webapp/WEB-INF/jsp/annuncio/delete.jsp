@@ -45,7 +45,7 @@
 
 					<dl class="row">
 						<dt class="col-sm-3 text-right">Venditore:</dt>
-						<dd class="col-sm-9">${delete_annuncio_attr.utenteInserimento.nome} ${delete_annuncio_attr.utenteInserimento.cognome} (${delete_annuncio_attr.utenteInserimento.username})</dd>
+						<dd class="col-sm-9">${delete_annuncio_attr.utente.nome} ${delete_annuncio_attr.utente.cognome} (${delete_annuncio_attr.utente.username})</dd>
 					</dl>
 					<dl class="row">
 						<dt class="col-sm-3 text-right">Data Inserimento:</dt>
@@ -80,7 +80,7 @@
 						<button type="submit" name="submit" id="submit"
 							class="btn btn-danger">Conferma</button>
 					<a
-						href="${pageContext.request.contextPath}/annuncio"
+						href="${pageContext.request.contextPath}/annuncio/annunciutente"
 						class='btn btn-outline-secondary' style='width: 80px'> <i
 						class='fa fa-chevron-left'></i> Back
 					</a>

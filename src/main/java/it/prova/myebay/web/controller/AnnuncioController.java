@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import exception.AnnuncioChiusoException;
-import exception.UtenteNonTrovatoException;
 import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
+import it.prova.myebay.exception.AnnuncioChiusoException;
+import it.prova.myebay.exception.UtenteNonTrovatoException;
 import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.service.AnnuncioService;
@@ -92,11 +92,11 @@ public class AnnuncioController {
 		try {
 			annuncioService.inserisciNuovo(annuncioDTO.buildAnnuncioModel(true, true));
 			redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		} catch (RuntimeException e) {
+		} catch (UtenteNonTrovatoException e) {
 			redirectAttrs.addFlashAttribute("errorMessage", "Attenzione! Utente non loggato.");
-			return "public/annuncio/list";
+			return "annuncio/list";
 		}
-		return "annuncio/list";
+		return "redirect:/annuncio/annunciutente";
 	}
 
 	@GetMapping("/annunciutente")
@@ -138,7 +138,7 @@ public class AnnuncioController {
 			return "redirect:/annuncio";
 		}
 
-		return "annuncio/listutente";
+		return "redirect:/annuncio/annunciutente";
 	}
 	
 	@GetMapping("delete/{idAnnuncio}")
@@ -167,10 +167,8 @@ public class AnnuncioController {
 			redirectAttrs.addFlashAttribute("errorMessage", "Attenzione! Non puoi eliminare un annuncio non tuo.");
 			return "redirect:/annuncio";
 		}
-		return "redirect:/annuncio";
+		return "redirect:/annuncio/annunciutente";
 
 	}
-
-	
 
 }

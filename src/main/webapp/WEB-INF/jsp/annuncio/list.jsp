@@ -60,7 +60,7 @@
 												<sec:authorize access="isAuthenticated()">
 													<sec:authentication property="principal.username" var="utenteInPagina"/>
 					
-													<c:if test="${annuncioItem.utenteInserimento.username != utenteInPagina}">
+													<c:if test="${annuncioItem.utente.username != utenteInPagina}">
 					
 														<form action="${pageContext.request.contextPath}/acquisto/compra"
 														method="post">

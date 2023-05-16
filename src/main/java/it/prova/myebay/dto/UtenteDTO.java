@@ -46,9 +46,7 @@ public class UtenteDTO {
 
 	private Long[] ruoliIds;
 	
-	private Set<AnnuncioDTO> annunci= new HashSet<>(0);
 	
-	private Set<AcquistoDTO> acquisti= new HashSet<>(0);
 	
 	public UtenteDTO() {
 	}
@@ -143,21 +141,7 @@ public class UtenteDTO {
 		this.ruoliIds = ruoliIds;
 	}
 
-	public Set<AnnuncioDTO> getAnnunci() {
-		return annunci;
-	}
 
-	public void setAnnunci(Set<AnnuncioDTO> annunci) {
-		this.annunci = annunci;
-	}
-
-	public Set<AcquistoDTO> getAcquisti() {
-		return acquisti;
-	}
-
-	public void setAcquisti(Set<AcquistoDTO> acquisti) {
-		this.acquisti = acquisti;
-	}
 	
 	public boolean isAttivo() {
 		return this.stato != null && this.stato.equals(StatoUtente.ATTIVO);

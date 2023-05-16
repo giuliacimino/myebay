@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
+import it.prova.myebay.model.Utente;
 
 public class AnnuncioDTO {
 
@@ -26,7 +27,7 @@ public class AnnuncioDTO {
 
 	private boolean aperto;
 
-	private UtenteDTO utenteInserimento;
+	private UtenteDTO utente;
 
 	private Long[] categorieIds;
 	
@@ -37,22 +38,22 @@ public class AnnuncioDTO {
 
 	}
 
-	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, UtenteDTO utenteInserimento) {
+	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, UtenteDTO utente) {
 		this.id = id;
 		this.testoAnnuncio = testoAnnuncio;
 		this.prezzo = prezzo;
 		this.data = data;
-		this.utenteInserimento=utenteInserimento;
+		this.utente=utente;
 	}
 
 	public AnnuncioDTO(Long id, String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto,
-			UtenteDTO utenteInserimento) {
+			UtenteDTO utente) {
 		this.id = id;
 		this.testoAnnuncio = testoAnnuncio;
 		this.prezzo = prezzo;
 		this.data = data;
 		this.aperto = aperto;
-		this.utenteInserimento = utenteInserimento;
+		this.utente = utente;
 	}
 
 	public AnnuncioDTO(String testoAnnuncio, Double prezzo, LocalDate data, boolean aperto) {
@@ -102,12 +103,12 @@ public class AnnuncioDTO {
 		this.aperto = aperto;
 	}
 
-	public UtenteDTO getUtenteInserimento() {
-		return utenteInserimento;
+	public UtenteDTO getUtente() {
+		return utente;
 	}
 
-	public void setUtenteInserimento(UtenteDTO utenteInserimento) {
-		this.utenteInserimento = utenteInserimento;
+	public void setUtente(UtenteDTO utente) {
+		this.utente = utente;
 	}
 
 	public Long[] getCategorieIds() {
@@ -118,8 +119,12 @@ public class AnnuncioDTO {
 		this.categorieIds = categorieIds;
 	}
 
+	
+	
 	public Annuncio buildAnnuncioModel(boolean aperto, boolean includesCategories) {
-		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.utenteInserimento.buildUtenteModel(false));
+		
+		Utente utenteModel = this.utente != null ? this.utente.buildUtenteModel(true) : null;
+		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, utenteModel);
 		if (includesCategories && categorieIds != null) {
 			result.setCategorie(
 					Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));

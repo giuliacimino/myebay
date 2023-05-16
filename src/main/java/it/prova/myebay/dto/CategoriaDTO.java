@@ -24,6 +24,7 @@ public CategoriaDTO () {
 		this.codice=codice;
 	}
 	public CategoriaDTO(Long id, String descrizione, String codice) {
+		this.id=id;
 		this.descrizione=descrizione;
 		this.codice=codice;
 	}

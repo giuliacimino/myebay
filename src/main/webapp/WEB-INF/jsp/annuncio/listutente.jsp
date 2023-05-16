@@ -31,7 +31,7 @@
 			    </div>
 			    <div class='card-body'>
 			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
-				            <i class='fa fa-chevron-left'></i> Torna alla Ricerca
+				            <i class='fa fa-chevron-left'></i> Torna alla homepage
 				        </a>
 			    
 			        <div class='table-responsive'>

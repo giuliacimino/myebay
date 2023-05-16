@@ -1,5 +1,6 @@
 package it.prova.myebay.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.myebay.model.Acquisto;
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.model.Utente;
 import it.prova.myebay.repository.acquisto.AcquistoRepository;
 import it.prova.myebay.repository.annuncio.AnnuncioRepository;
 
@@ -16,6 +18,9 @@ import it.prova.myebay.repository.annuncio.AnnuncioRepository;
 public class AnnuncioServiceImpl implements AnnuncioService {
 	@Autowired
 	AnnuncioRepository annuncioRepository;
+	
+	@Autowired
+	UtenteService utenteService;
 
 	@Override
 	public List<Annuncio> listAllElements() {
@@ -29,14 +34,23 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 	}
 
 	@Override
+	@Transactional
 	public void aggiorna(Annuncio annuncioInstance) {
+		Annuncio annuncioFromDb = annuncioRepository.findById(annuncioInstance.getId()).orElseThrow();
+		//faccio la copia solo dei campi che mi servono
+		annuncioInstance.setUtenteInserimento(annuncioFromDb.getUtenteInserimento());
 		annuncioRepository.save(annuncioInstance);
-
-		
 	}
 
 	@Override
 	public void inserisciNuovo(Annuncio annuncioInstance) {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		Utente utenteFromDb= utenteService.findByUsername(username);
+		annuncioInstance.setUtenteInserimento(utenteFromDb);
+		annuncioInstance.setAperto(true);
+		annuncioInstance.setData(LocalDate.now());
 		annuncioRepository.save(annuncioInstance);
 
 		
