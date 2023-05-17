@@ -40,6 +40,7 @@
 			                    <tr>
 			                        <th>Testo Annuncio</th>
 			                        <th>Prezzo</th>
+			                        <th>Stato</th>
 			                        <th>Data Inserimento</th>
 			                        <th>Azioni</th>
 			                    </tr>
@@ -49,6 +50,7 @@
 										<tr>
 											<td>${annuncioItem.testoAnnuncio }</td>
 											<td>${annuncioItem.prezzo } $</td>
+											<td>${annuncioItem.aperto}</td> 
 											<td>
 												<fmt:parseDate value="${annuncioItem.data}" pattern="yyyy-MM-dd" var="localDateToBeParsed" type="date"/>
 												<fmt:formatDate pattern="dd/MM/yyyy" value="${localDateToBeParsed}" />

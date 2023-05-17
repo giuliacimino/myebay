@@ -41,6 +41,7 @@
 					  <dd class="col-sm-9">${show_annuncio_attr.prezzo}</dd>
 			    	</dl>
 			    	
+			    	
 			    	<dl class="row">
 					  <dt class="col-sm-3 text-right">Data Pubblicazione:</dt>
 					  <dd class="col-sm-9">

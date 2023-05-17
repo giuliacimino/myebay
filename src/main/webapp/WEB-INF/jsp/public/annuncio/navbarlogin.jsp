@@ -13,6 +13,8 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/public/annuncio/search">Ricerca Annunci</a>
             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/secured/home">Area Personale</a>
+            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/public/home">Home</a>
+            
 
           </li>
           <li class="nav-item">
@@ -21,9 +23,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/home">Home</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/listaannunci/${utenteInPagina}">Gestione annunci</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/search/${utenteInPagina}">I tuoi acquisti</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/annuncioprotetto/annunciutente/${utenteInPagina}">I tuoi annunci </a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/utente/acquisto/acquistiutente/${utenteInPagina}">I tuoi acquisti</a></li>
            
             </ul> 
           </li>

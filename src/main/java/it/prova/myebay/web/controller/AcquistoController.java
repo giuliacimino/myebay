@@ -56,11 +56,11 @@ public class AcquistoController {
 			acquistoService.inserisciNuovoAcquisto(idAnnuncio);
 		} catch (CreditoInsufficienteException e) {
 			redirectAttrs.addFlashAttribute("errorMessage", "errore: credito Insufficiente");
-			return "redirect:/public/annuncio";
+			return "redirect:/public/annuncio/list";
 		}
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		return "redirect:/public/annuncio";
+		return "redirect:/utente/acquisto/acquistiutente";
 	}
 
 }

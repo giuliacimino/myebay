@@ -39,6 +39,11 @@
 			    	</dl>
 			    	
 			    	<dl class="row">
+					  <dt class="col-sm-3 text-right">Stato:</dt>
+					  <dd class="col-sm-9">${show_annuncio_attr.aperto}</dd>
+			    	</dl>
+			    	
+			    	<dl class="row">
 					  <dt class="col-sm-3 text-right">Data Pubblicazione:</dt>
 					  <dd class="col-sm-9">
 					  	<fmt:parseDate value="${show_annuncio_attr.data}" pattern="yyyy-MM-dd" var="localDateToBeParsed" type="date"/>

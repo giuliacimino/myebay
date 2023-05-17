@@ -63,14 +63,19 @@
 											</td>
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/public/annuncio/show/${annuncioItem.id }">Visualizza</a>
-												
+													<c:if test="${annuncioItem.utente.username !=  userInfo.username}">
+														
 														<form action="${pageContext.request.contextPath}/utente/acquisto/compra"
 														method="post">
+														
 															<input type="hidden" value="${annuncioItem.id}" name="idAnnuncio"
 															id="idAnnuncio">
 																<button type="submit" name="submit" id="submit"
 																class="btn btn-danger">Compra</button>
+															
+															
 														</form>				
+													</c:if>
 											
 								
 												
