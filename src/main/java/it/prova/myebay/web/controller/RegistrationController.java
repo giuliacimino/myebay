@@ -38,7 +38,7 @@ public class RegistrationController {
 			
 		}
 		if (result.hasErrors()) {
-			return "utente/insert";
+			return "signup";
 		}
 		utenteService.registrati(utenteDTO.buildUtenteModel(true));
 
